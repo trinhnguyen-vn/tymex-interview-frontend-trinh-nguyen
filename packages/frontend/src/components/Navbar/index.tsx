@@ -1,143 +1,20 @@
 'use client';
-import React, { FC, useState } from 'react';
+import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
     AppBar,
     Toolbar,
     Typography,
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    Drawer,
-    List,
-    ListItem,
-    ListItemText,
     useMediaQuery,
     useTheme,
     Box,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import LanguageIcon from '@mui/icons-material/Language';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { StyledLink } from '@/styles/Link';
-import { LANGUAGES, TypeLanguageValue } from '@/constants/languages';
-
-interface NavLink {
-    label: string;
-    path: string;
-}
-
-const NAV_LINKS: NavLink[] = [
-    { label: 'HOME', path: '/' },
-    { label: 'ABOUT US', path: '/about' },
-    { label: 'OUR TEAMS', path: '/teams' },
-    { label: 'MARKETPLACE ROADMAP', path: '/roadmap' },
-    { label: 'WHITEPAPER', path: '/whitepaper' },
-];
-
-const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: (language: string) => void; checkIsActive: (path: string) => boolean }> = ({ handleConnectWallet, handleSelectLanguage, checkIsActive }) => {
-    const router = useRouter();
-    const [mobileOpen, setMobileOpen] = useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
-    return <>
-        <IconButton
-            color="inherit"
-            edge="end"
-            onClick={handleDrawerToggle}
-            sx={{ color: '#fff' }}
-        >
-            <MenuIcon />
-        </IconButton>
-        <Drawer
-            anchor="right"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            sx={{
-                '& .MuiDrawer-paper': {
-                    backgroundColor: '#1A1A2E',
-                    color: '#fff',
-                },
-            }}
-        >
-            <List>
-                {NAV_LINKS.map((link) => (
-                    <ListItem
-                        button
-                        key={link.label}
-                        onClick={() => {
-                            router.push(link.path);
-                            setMobileOpen(false);
-                        }}
-                        sx={{
-                            backgroundColor: checkIsActive(link.path) ? 'primary.main' : 'transparent',
-                        }}
-                    >
-                        <ListItemText primary={link.label} />
-                    </ListItem>
-                ))}
-                <ListItem>
-                    <ConnectWalletButton handleConnectWallet={handleConnectWallet} />
-                </ListItem>
-                <ListItem>
-                    <LanguageSelector handleSelectLanguage={handleSelectLanguage} />
-                </ListItem>
-            </List>
-        </Drawer>
-    </>
-
-}
-
-const ConnectWalletButton: FC<{ handleConnectWallet: () => void }> = ({ handleConnectWallet }) => {
-    return <Button
-        variant="contained"
-        onClick={handleConnectWallet}
-    >
-        Connect Wallet
-    </Button>
-}
-
-
-const LanguageSelector: FC<{ handleSelectLanguage: (language: TypeLanguageValue) => void }> = ({ handleSelectLanguage }) => {
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const handleLanguageMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleLanguageMenuClose = () => {
-        setAnchorEl(null);
-    };
-    return <>
-        <IconButton
-            sx={{ color: '#fff' }}
-            onClick={handleLanguageMenuOpen}
-        >
-            <LanguageIcon />
-            <ArrowDropDownIcon />
-        </IconButton>
-        <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleLanguageMenuClose}
-        >
-            {LANGUAGES.map((language) => (
-                <MenuItem
-                    key={language.value}
-                    onClick={() => {
-                        handleLanguageMenuClose();
-                        handleSelectLanguage(language.value)
-                    }}
-                    sx={{ color: language.value === 'en' ? 'primary.main' : 'text.secondary', fontWeight: language.value === 'en' ? 'bold' : 'normal', }}
-                >
-                    {language.label}
-                </MenuItem>
-            ))}     </Menu>
-    </>
-}
+import { TypeLanguageValue } from '@/constants/languages';
+import { NAV_LINKS } from '@/constants/navbar';
+import MobileNavbar from './MobileNavBar';
+import ConnectWalletButton from './ConnectWalletButton';
+import LanguageSelector from './LanguageSelector';
 
 const Navbar: React.FC = () => {
     const router = useRouter();
