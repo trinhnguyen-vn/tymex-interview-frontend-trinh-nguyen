@@ -50,7 +50,6 @@ make stop
 Create a `.env.local` file in the root directory:
 ```env
 NEXT_PUBLIC_API_HOST_URL=your_api_url
-SERVER_API_HOST_URL=your_server_api_url
 ```
 
 ## Development Workflow

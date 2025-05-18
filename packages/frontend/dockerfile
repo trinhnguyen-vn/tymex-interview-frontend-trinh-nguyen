@@ -5,8 +5,7 @@ COPY . ./
 
 # Set environment variable for production
 ENV NODE_ENV=production
-ENV NEXT_PUBLIC_API_HOST_URL=
-ENV SERVER_API_HOST_URL=
+ENV NEXT_PUBLIC_API_HOST_URL=https://api.demo.cmoon.site
 
 # Build the Next.js application
 RUN yarn install --frozen-lockfile
