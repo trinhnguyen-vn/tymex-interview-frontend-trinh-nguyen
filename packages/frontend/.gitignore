@@ -3,7 +3,8 @@
 # dependencies
 /node_modules
 **/node_modules
-
+/.pnp
+.pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -12,6 +13,10 @@
 
 # testing
 /coverage
+
+# next.js
+/.next/
+/out/
 
 # production
 /build
@@ -35,6 +40,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# my notes
-todo.md

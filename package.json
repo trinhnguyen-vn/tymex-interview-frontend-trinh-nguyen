@@ -1,36 +1,19 @@
 {
-  "name": "a",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "build-docker": "make build",
-    "start-docker": "make run",
-    "stop-docker": "make stop",
-    "lint": "next lint",
-    "test": "jest --passWithNoTests"
-  },
-  "dependencies": {
-    "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5"
-  }
+    "name": "tymex-interview",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "yarn dev:mock_server & yarn dev:frontend",
+        "dev:mock_server-expect": "kill -9 $(lsof -t -i:5005) 2>/dev/null || true && yarn workspace @tymex-interview/mock-server dev",
+        "dev:mock_server": "yarn workspace @tymex-interview/mock-server dev",
+        "dev:frontend": "yarn workspace @tymex-interview/frontend dev",
+        "build": "yarn workspace @tymex-interview/frontend build",
+        "lint": "yarn workspace @tymex-interview/frontend lint",
+        "test": "yarn workspace @tymex-interview/frontend test"
+    },
+    "devDependencies": {
+        "wait-on": "^8.0.3"
+    }
 }

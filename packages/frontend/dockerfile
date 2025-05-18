@@ -1,16 +1,5 @@
-FROM node:18-alpine AS base
-# Set the working directory inside the container
-WORKDIR /app
-# Copy application code
-COPY . ./
-# Install the application dependencies
-RUN yarn install
-
-
 FROM node:lts-alpine AS build
 WORKDIR /app
-# Copy the node_modules from the base image
-COPY --from=base /app/node_modules ./node_modules
 # Copy the rest of the application code
 COPY . ./
 
@@ -20,6 +9,7 @@ ENV NEXT_PUBLIC_API_HOST_URL=
 ENV SERVER_API_HOST_URL=
 
 # Build the Next.js application
+RUN yarn install --frozen-lockfile
 RUN yarn build
 
 FROM node:lts-alpine AS production

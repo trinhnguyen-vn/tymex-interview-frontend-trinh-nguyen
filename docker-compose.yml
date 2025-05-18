@@ -1,0 +1,39 @@
+# @TODO: why it is not working?
+version: '3.8'
+
+services:
+  mock-server:
+    build:
+      context: ./packages/server
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "5005:5005"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5005/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
+
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_HOST_URL=http://localhost:5005
+    volumes:
+      - ./apps/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      mock-server:
+        condition: service_healthy
