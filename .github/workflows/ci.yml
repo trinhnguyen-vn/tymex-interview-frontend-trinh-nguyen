@@ -42,10 +42,8 @@ jobs:
   build-and-deploy:
     needs: install-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
     steps:
-      - name: Build and deploy to server
+      - name: Build and Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -53,4 +51,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd ~/tymex-interview-frontend-trinh-nguyen
-            make auto
+            git pull
+            docker rm $$(docker stop $$(docker ps -a -q -f "expose=3000")) || true
+            docker build -t tymex-web .
+            docker run -d --restart unless-stopped -p 3000:3000 --name tymex-web tymex-web
