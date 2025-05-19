@@ -12,8 +12,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NAV_LINKS } from '@/constants/navbar';
 import ConnectWalletButton from './ConnectWalletButton';
 import LanguageSelector from './LanguageSelector';
+import { TypeLanguageValue } from '@/constants';
 
-const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: (language: string) => void; checkIsActive: (path: string) => boolean }> = ({ handleConnectWallet, handleSelectLanguage, checkIsActive }) => {
+const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: (language: TypeLanguageValue) => void; checkIsActive: (path: string) => boolean }> = ({ handleConnectWallet, handleSelectLanguage, checkIsActive }) => {
     const router = useRouter();
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -44,8 +45,8 @@ const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: 
             <List>
                 {NAV_LINKS.map((link) => (
                     <ListItem
-                        button
                         key={link.label}
+                        component="button"
                         onClick={() => {
                             router.push(link.path);
                             setMobileOpen(false);

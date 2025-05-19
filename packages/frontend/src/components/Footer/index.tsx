@@ -2,10 +2,10 @@
 import React from 'react';
 import {
     Box,
-    Grid,
     Typography,
     TextField,
     Button,
+    Grid
 } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
         >
             <Grid container spacing={3} justifyContent="space-between">
                 {/* Navigation Section */}
-                <Grid item xs={12} sm={4} md={3}>
+                <Grid size={{ xs: 12, md: 3, sm: 4 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                         NAVIGATION
                     </Typography>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
                 </Grid>
 
                 {/* Contact Us Section */}
-                <Grid item xs={12} sm={4} md={2}>
+                <Grid size={{ xs: 12, md: 2, sm: 4 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                         CONTACT US
                     </Typography>
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
                 </Grid>
 
                 {/* Subscribe Section */}
-                <Grid item xs={12} sm={4} md={3}>
+                <Grid size={{ xs: 12, md: 3, sm: 4 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                         SUBSCRIBE TO RECEIVE OUR LATEST UPDATE
                     </Typography>
