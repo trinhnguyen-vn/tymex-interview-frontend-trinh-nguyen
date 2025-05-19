@@ -4,9 +4,10 @@ interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-    { label: 'HOME', path: '/' },
-    { label: 'ABOUT US', path: '/about' },
-    { label: 'OUR TEAMS', path: '/teams' },
-    { label: 'MARKETPLACE ROADMAP', path: '/roadmap' },
-    { label: 'WHITEPAPER', path: '/whitepaper' },
+    { label: 'Home', path: '/' },
+    { label: 'About us', path: '/about' },
+    { label: 'Our teams', path: '/teams' },
+    { label: 'Marketplace', path: '/marketplace' },
+    { label: 'Roadmap', path: '/roadmap' },
+    { label: 'Whitepaper', path: '/whitepaper' },
 ];

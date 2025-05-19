@@ -15,6 +15,7 @@ import { NAV_LINKS } from '@/constants/navbar';
 import MobileNavbar from './MobileNavBar';
 import ConnectWalletButton from './ConnectWalletButton';
 import LanguageSelector from './LanguageSelector';
+import { MAIN_BACKGROUND_COLOR } from '@/styles';
 
 const Navbar: React.FC = () => {
     const router = useRouter();
@@ -38,7 +39,7 @@ const Navbar: React.FC = () => {
         <AppBar
             position="fixed"
             sx={{
-                background: 'linear-gradient(90deg, #1A1A2E 0%, #16213E 100%)',
+                background: MAIN_BACKGROUND_COLOR,
                 boxShadow: 'none',
 
             }}
@@ -56,11 +57,9 @@ const Navbar: React.FC = () => {
                         <Box sx={{ display: 'flex', gap: 5 }}>
                             {NAV_LINKS.map((link) => (
                                 <StyledLink href={link.path} passHref key={link.label} sx={{
-                                    textDecoration: 'none',
+                                    color: checkIsActive(link.path) ? 'primary.main' : 'text.primary', textTransform: "uppercase"
                                 }}>
-                                    <Typography sx={{
-                                        color: checkIsActive(link.path) ? 'primary.main' : 'text.primary',
-                                    }}>{link.label}</Typography>
+                                    {link.label}
                                 </StyledLink>
                             ))}
                         </Box>
