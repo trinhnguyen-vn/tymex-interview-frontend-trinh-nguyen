@@ -9,7 +9,7 @@
     "start-docker": "make run",
     "stop-docker": "make stop",
     "lint": "next lint",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix --ignore-pattern .next/",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {

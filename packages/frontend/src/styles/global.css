@@ -1,0 +1,33 @@
+::-webkit-scrollbar-thumb {
+    background: #cfbd53;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+.MuiOutlinedInput-root {
+    color: '#fff';
+
+    & fieldset {
+        border-color: #3A3841
+    }
+
+    ;
+
+    &:hover fieldset {
+        border-color: red
+    }
+
+    ;
+}
+
+.MuiMenu-list {
+    background-color: #fff;
+    color: black
+}
+
+.MuiSvgIcon-root.MuiSelect-icon {
+    color: #fff;
+}

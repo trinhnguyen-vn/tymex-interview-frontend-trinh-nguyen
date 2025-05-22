@@ -1,9 +1,6 @@
-interface NavLink {
-    label: string;
-    path: string;
-}
+import { TypeNavLink } from '@/types';
 
-export const NAV_LINKS: NavLink[] = [
+export const NAV_LINKS: TypeNavLink[] = [
     { label: 'Home', path: '/' },
     { label: 'About us', path: '/about' },
     { label: 'Our teams', path: '/teams' },

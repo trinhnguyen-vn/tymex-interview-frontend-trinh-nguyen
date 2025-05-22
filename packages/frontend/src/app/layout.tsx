@@ -18,6 +18,8 @@ export default function RootLayout({
               minHeight: '100vh',
               display: 'flex',
               flexDirection: 'column',
+              pb: 10,
+              background: 'url(assets/images/mainBackground.svg) no-repeat center center fixed',
             }}
           >
             {children}

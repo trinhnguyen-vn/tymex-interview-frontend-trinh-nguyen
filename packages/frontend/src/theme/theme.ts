@@ -4,8 +4,8 @@ export const theme = createTheme({
     palette: {
         primary: {
             main: "#DA458F",
-            light: '#42a5f5',
-            dark: '#1565c0',
+            light: '#a579a4',
+            dark: '#cd096a',
         },
         secondary: {
             main: '#dc004e',
@@ -20,6 +20,7 @@ export const theme = createTheme({
             primary: '#FFFFFF',
             secondary: '#89888B',
         },
+        divider: '#3A3841',
     },
     typography: {
         h1: {
@@ -29,6 +30,10 @@ export const theme = createTheme({
         h2: {
             fontSize: '2rem',
             fontWeight: 500,
+        },
+        body2: {
+            fontSize: '0.75rem',
+            fontWeight: 600,
         },
         button: {
             textTransform: 'none',

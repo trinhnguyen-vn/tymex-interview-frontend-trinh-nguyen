@@ -10,7 +10,7 @@ import {
     Box,
 } from '@mui/material';
 import { StyledLink } from '@/styles/Link';
-import { TypeLanguageValue } from '@/constants/languages';
+import { TypeLanguageValue } from '@/types';
 import { NAV_LINKS } from '@/constants/navbar';
 import MobileNavbar from './MobileNavBar';
 import ConnectWalletButton from './ConnectWalletButton';

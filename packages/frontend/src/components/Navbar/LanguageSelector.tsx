@@ -8,7 +8,9 @@ import {
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { LANGUAGES, TypeLanguageValue } from '@/constants/languages';
+import { LANGUAGES } from '@/constants/languages';
+import { TypeLanguageValue } from '@/types';
+
 const LanguageSelector: FC<{ handleSelectLanguage: (language: TypeLanguageValue) => void }> = ({ handleSelectLanguage }) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const handleLanguageMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
