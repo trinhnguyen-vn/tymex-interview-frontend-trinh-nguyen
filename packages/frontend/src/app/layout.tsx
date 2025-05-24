@@ -12,19 +12,22 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider>
+
           <Navbar />
           <Box
             sx={{
-              minHeight: '100vh',
               display: 'flex',
               flexDirection: 'column',
-              pb: 10,
               background: 'url(assets/images/mainBackground.svg) no-repeat center center fixed',
             }}
           >
-            {children}
+            <Box sx={{ minHeight: "70vh" }}>
+              {children}
+            </Box>
+            <Footer />
+
           </Box>
-          <Footer />
+
         </ThemeProvider>
       </body>
     </html>

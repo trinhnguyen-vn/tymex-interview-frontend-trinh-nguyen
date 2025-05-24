@@ -37,4 +37,6 @@ export const PRODUCT_CATEGORIES_COLORS: Record<typeof PRODUCT_CATEGORIES[number]
 };
 
 
+export const LIMIT = 20;
+export const CATEGORY_ALL = 'ALL';
 

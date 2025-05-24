@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
     AppBar,
@@ -23,6 +23,15 @@ const Navbar: React.FC = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const currentActivePath = usePathname();
     const checkIsActive = (path: string) => currentActivePath === path;
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleConnectWallet = () => {
         // wallet connection logic here
@@ -40,8 +49,7 @@ const Navbar: React.FC = () => {
             position="fixed"
             sx={{
                 background: MAIN_BACKGROUND_COLOR,
-                boxShadow: 'none',
-
+                borderBottom: scrolled ? `3px solid ${theme.palette.primary.main}` : 'none',
             }}
         >
             <Toolbar sx={{ justifyContent: 'space-between', height: '80px', }}>

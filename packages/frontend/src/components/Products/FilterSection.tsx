@@ -1,5 +1,5 @@
 // add search and filter section
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Box,
     TextField,
@@ -14,7 +14,7 @@ import {
 import { PRODUCT_TIERS, PRODUCT_THEMES } from '@/constants/products';
 import { SearchOutlined } from '@mui/icons-material';
 import { TypeProduct, TypeSortPrice, TypeTimeFrame } from '@/types';
-import { useDebounce } from '@/hooks/useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import { getAllProducts } from '@/api/products';
 
 const CustomSlider = styled(Slider)({
@@ -37,22 +37,28 @@ const CustomSlider = styled(Slider)({
     },
 });
 
-const FilterSection = ({ setFilteredProducts }: { setFilteredProducts: React.Dispatch<React.SetStateAction<TypeProduct[]>> }) => {
+type TypeFilterSectionProps = {
+    setFilteredProducts: React.Dispatch<React.SetStateAction<TypeProduct[] | null>>;
+    isResetFilter: boolean;
+    setIsResetFilter: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }: TypeFilterSectionProps) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
     const [tier, setTier] = useState('');
     const [timeFrame, setTimeFrame] = useState<TypeTimeFrame>('');
     const [productTheme, setProductTheme] = useState('');
     const [sortPrice, setSortPrice] = useState<TypeSortPrice>('');
-    const debouncedSearchTerm = useDebounce(searchTerm, 4000);
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-    const handleReset = () => {
+    const handleReset = useCallback(() => {
         setSearchTerm('');
         setPriceRange([0, 100]);
         setTier('');
         setTimeFrame('');
         setSortPrice('');
-    };
+    }, []);
 
     const onSearchByTitle = useCallback(async () => {
         try {
@@ -82,6 +88,19 @@ const FilterSection = ({ setFilteredProducts }: { setFilteredProducts: React.Dis
         }
     }, [setFilteredProducts, searchTerm, priceRange, tier, productTheme, timeFrame, sortPrice]);
 
+    useEffect(() => {
+        if (debouncedSearchTerm !== '') {
+            onSearchByTitle();
+        }
+    }, [debouncedSearchTerm, onSearchByTitle]);
+
+    useEffect(() => {
+        if (isResetFilter) {
+            handleReset();
+            setIsResetFilter(false)
+        }
+    }, [isResetFilter, handleReset, setIsResetFilter]);
+
     return (
         <Box sx={{
             display: 'flex',
@@ -98,7 +117,6 @@ const FilterSection = ({ setFilteredProducts }: { setFilteredProducts: React.Dis
                 InputProps={{
                     startAdornment: <SearchOutlined />,
                 }}
-                onKeyDown={onSearchByTitle}
                 sx={{ mb: 1 }}
             />
             <Box sx={{
