@@ -54,6 +54,7 @@ export default function ProductCard({
 }: ProductCardProps) {
     return (
         <Card
+            data-testid="product-card"
             sx={{
                 borderRadius: 4,
                 background: '#232336',
@@ -111,7 +112,7 @@ export default function ProductCard({
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                         <Image src="/assets/icons/logosEthereum.png" alt="Ethereum" width='6' height='12' loading='lazy' />
                         <Typography variant='body2'>
-                            {price.toLocaleString('en-US', { minimumFractionDigits: 2 })} ETH
+                            {price.toFixed(2)} ETH
                         </Typography>
                     </Box>
                 </Box>

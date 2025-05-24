@@ -1,5 +1,6 @@
+import { TypeProduct, TypeProductCategory } from "@/types";
 
-export const author = {
+export const MOCKED_AUTHOR = {
     "firstName": "Dewie",
     "lastName": "Labeuil",
     "email": "dlabeuilv@nba.com",
@@ -7,20 +8,61 @@ export const author = {
     "avatar": "https://robohash.org/nihiltotamdolorem.png?size=100x100&set=set1",
     "onlineStatus": "idle"
 }
-export const product = {
+export const MOCKED_PRODUCT = {
     "id": 1,
     "title": "Metal Gear Girl",
     "category": "Mythic",
     "price": 30.09,
     "isFavorite": false,
     "createdAt": 1624533946000,
-    "theme": "Halloween",
-    "tier": "Premium",
-    "imageId": 8,
-    author,
+    theme: "Halloween",
+    tier: "Premium",
+    imageId: 8,
+    author: MOCKED_AUTHOR,
 }
 
-export const allProducts = [{
+export const MOCK_INITIAL_PRODUCTS: TypeProduct[] = [
+    {
+        id: 1,
+        title: 'Product 1',
+        category: 'Electronics' as TypeProductCategory,
+        price: 100.00,
+        isFavorite: false,
+        createdAt: Date.now(),
+        theme: 'light',
+        tier: 'basic',
+        imageId: 1,
+        author: {
+            "firstName": "Dewie",
+            "lastName": "Labeuil",
+            "email": "dlabeuilv@nba.com",
+            "gender": "Male",
+            "avatar": "https://robohash.org/nihiltotamdolorem.png?size=100x100&set=set1",
+            "onlineStatus": "idle"
+        }
+    },
+    {
+        id: 2,
+        title: 'Product 2',
+        category: 'Clothing' as TypeProductCategory,
+        price: 50.00,
+        isFavorite: false,
+        createdAt: Date.now(),
+        theme: 'dark',
+        tier: 'premium',
+        imageId: 2,
+        author: {
+            "firstName": "Merida",
+            "lastName": "Nguyen",
+            "email": "dlabeuilv@nba.com",
+            "gender": "Male",
+            "avatar": "https://robohash.org/nihiltotamdolorem.png?size=100x100&set=set1",
+            "onlineStatus": "idle"
+        }
+    }
+];
+
+export const MOCKED_ALL_PRODUCTS = [{
     "id": 1,
     "title": "Metal Gear Girl",
     "category": "Mythic",

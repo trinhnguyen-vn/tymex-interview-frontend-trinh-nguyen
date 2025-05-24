@@ -12,7 +12,6 @@ export const getProductsApiEndpoint = (params: TypeGetAllProductsParams) => {
     if (params.theme) queryParams.set('theme', params.theme);
     if (params.timeFrame) queryParams.set('timeFrame', params.timeFrame);
     if (params.category) queryParams.set('category', params.category);
-    // _sort=price&_order=desc
     if (params.sortPrice) {
         queryParams.set('_sort', 'price');
         queryParams.set('_order', params.sortPrice);

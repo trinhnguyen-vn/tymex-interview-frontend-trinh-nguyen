@@ -11,7 +11,8 @@
         "dev:frontend": "yarn workspace @tymex-interview/frontend dev",
         "build": "yarn workspace @tymex-interview/frontend build",
         "lint": "yarn workspace @tymex-interview/frontend lint",
-        "test": "yarn workspace @tymex-interview/frontend test"
+        "test": "yarn workspace @tymex-interview/frontend test",
+        "test:cov": "yarn workspace @tymex-interview/frontend test:cov"
     },
     "devDependencies": {
         "wait-on": "^8.0.3"

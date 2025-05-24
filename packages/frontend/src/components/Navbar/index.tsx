@@ -13,7 +13,7 @@ import { StyledLink } from '@/styles/Link';
 import { TypeLanguageValue } from '@/types';
 import { NAV_LINKS } from '@/constants/navbar';
 import MobileNavbar from './MobileNavBar';
-import ConnectWalletButton from './ConnectWalletButton';
+import ConnectWalletButton from '@/components/Wallets/ConnectWalletButton';
 import LanguageSelector from './LanguageSelector';
 import { MAIN_BACKGROUND_COLOR } from '@/styles';
 
@@ -43,7 +43,6 @@ const Navbar: React.FC = () => {
         console.log('Selecting language...', language);
     };
 
-
     return (
         <AppBar
             position="fixed"
@@ -59,10 +58,14 @@ const Navbar: React.FC = () => {
                         MarketPlace
                     </Typography>
                 </StyledLink>
-                {/* Desktop Navigation */}
-                {!isMobile ? (
+
+                {isMobile ? (
+                    // Mobile Navigation
+                    <MobileNavbar checkIsActive={checkIsActive} handleConnectWallet={handleConnectWallet} handleSelectLanguage={handleSelectLanguage} />
+                ) : (
                     <>
-                        <Box sx={{ display: 'flex', gap: 5 }}>
+                        {/* Desktop Navigation  */}
+                        <Box sx={{ display: 'flex', gap: 5 }} data-testid="desktop-navbar">
                             {NAV_LINKS.map((link) => (
                                 <StyledLink href={link.path} passHref key={link.label} sx={{
                                     color: checkIsActive(link.path) ? 'primary.main' : 'text.primary', textTransform: "uppercase"
@@ -78,9 +81,6 @@ const Navbar: React.FC = () => {
 
                         </div>
                     </>
-                ) : (
-                    // Mobile Navigation
-                    <MobileNavbar checkIsActive={checkIsActive} handleConnectWallet={handleConnectWallet} handleSelectLanguage={handleSelectLanguage} />
                 )}
             </Toolbar>
         </AppBar>

@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NAV_LINKS } from '@/constants/navbar';
-import ConnectWalletButton from './ConnectWalletButton';
+import ConnectWalletButton from '../Wallets/ConnectWalletButton';
 import LanguageSelector from './LanguageSelector';
 import { TypeLanguageValue } from '@/types';
 
@@ -22,7 +22,7 @@ const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: 
         setMobileOpen(!mobileOpen);
     };
 
-    return <>
+    return <div data-testid="mobile-navbar">
         <IconButton
             color="inherit"
             edge="end"
@@ -66,7 +66,7 @@ const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: 
                 </ListItem>
             </List>
         </Drawer>
-    </>
+    </div>
 
 }
 export default MobileNavbar;

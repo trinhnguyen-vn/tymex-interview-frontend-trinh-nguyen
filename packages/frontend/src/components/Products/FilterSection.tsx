@@ -1,4 +1,3 @@
-// add search and filter section
 import React, { useCallback, useEffect, useState } from 'react';
 import {
     Box,
@@ -14,7 +13,7 @@ import {
 import { PRODUCT_TIERS, PRODUCT_THEMES } from '@/constants/products';
 import { SearchOutlined } from '@mui/icons-material';
 import { TypeProduct, TypeSortPrice, TypeTimeFrame } from '@/types';
-import useDebounce from '@/hooks/useDebounce';
+import { useDebounce } from '@/hooks/useDebounce';
 import { getAllProducts } from '@/api/products';
 
 const CustomSlider = styled(Slider)({
@@ -44,13 +43,13 @@ type TypeFilterSectionProps = {
 }
 
 const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }: TypeFilterSectionProps) => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState<string>('');
     const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
     const [tier, setTier] = useState('');
     const [timeFrame, setTimeFrame] = useState<TypeTimeFrame>('');
     const [productTheme, setProductTheme] = useState('');
     const [sortPrice, setSortPrice] = useState<TypeSortPrice>('');
-    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+    const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
 
     const handleReset = useCallback(() => {
         setSearchTerm('');

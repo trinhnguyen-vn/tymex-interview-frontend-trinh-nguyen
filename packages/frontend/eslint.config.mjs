@@ -16,6 +16,7 @@ const eslintConfig = [
     plugins: { "unused-imports": unusedImports },
     rules: {
       "unused-imports/no-unused-imports": "error",
+      '@typescript-eslint/no-require-imports': 'off', // allow require imports
       "unused-imports/no-unused-vars": [
         "warn",
         { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" }

@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import { ThemeProvider } from '@/theme/ThemeProvider';
 import { Box } from '@mui/material';
 
 export default function RootLayout({

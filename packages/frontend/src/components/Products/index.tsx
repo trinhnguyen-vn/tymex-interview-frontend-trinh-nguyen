@@ -67,7 +67,6 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
         }
     }, [fetchedProductsData, initialProductsData, selectedCategory, isLoadingMoreMode])
 
-
     return (
         <Box sx={{ p: 3, pt: 10 }}>
             <Box sx={{
