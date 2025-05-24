@@ -1,27 +1,37 @@
-FROM node:lts-alpine AS build
+FROM node:lts-alpine AS builder
 WORKDIR /app
+
+# Copy root package.json and yarn.lock
+COPY package.json yarn.lock ./
+
+# Copy workspace package.json
+COPY packages/frontend/package.json ./packages/frontend/
+
+# Install dependencies
+RUN yarn install
+
 # Copy the rest of the application code
-COPY . ./
+COPY . .
 
 # Set environment variable for production
 ENV NODE_ENV=production
 ENV NEXT_PUBLIC_API_HOST_URL=https://api.demo.cmoon.site
 
 # Build the Next.js application
-RUN yarn install --frozen-lockfile
-RUN yarn build
+RUN yarn workspace @tymex-interview/frontend build
 
 FROM node:lts-alpine AS production
 WORKDIR /app
-COPY --from=build /app/public ./public
 
-# Set mode "standalone" in file "next.config.js"
-COPY --from=build /app/.next/standalone ./
-COPY --from=build /app/.next/static ./.next/static
+# Copy necessary files from builder stage
+COPY --from=builder /app/packages/frontend/.next/standalone .
+COPY --from=builder /app/packages/frontend/public ./packages/frontend/public
+COPY --from=builder /app/packages/frontend/package.json ./packages/frontend/package.json
+COPY --from=builder /app/packages/frontend/.next/static ./packages/frontend/static
 
-# Expose the port on which the Next.js application will run (adjust as needed)
+
+# Expose the port on which the Next.js application will run
 EXPOSE 3000
 
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
-CMD ["node", "server.js"]
+# Start the application
+CMD ["node", "packages/frontend/server.js"]
