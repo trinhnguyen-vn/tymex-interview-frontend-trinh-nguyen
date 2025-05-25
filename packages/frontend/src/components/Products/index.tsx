@@ -46,6 +46,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
         setIsLoadingMoreMode(false)
         setSelectedCategory(category);
         setIsResetFilter(true)
+        setPage(1);
         await fetchProducts({ url: getProductApiUrl(category === CATEGORY_ALL ? '' : category) })
 
     }, [fetchProducts, getProductApiUrl])

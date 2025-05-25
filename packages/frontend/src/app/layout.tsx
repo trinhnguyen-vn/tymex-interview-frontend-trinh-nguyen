@@ -1,7 +1,8 @@
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/theme/ThemeProvider';
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
+import { Suspense } from 'react';
 
 export default function RootLayout({
   children,
@@ -12,7 +13,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider>
-
           <Navbar />
           <Box
             sx={{
@@ -22,12 +22,12 @@ export default function RootLayout({
             }}
           >
             <Box sx={{ minHeight: "70vh" }}>
-              {children}
+              <Suspense fallback={<Skeleton />}>
+                {children}
+              </Suspense>
             </Box>
             <Footer />
-
           </Box>
-
         </ThemeProvider>
       </body>
     </html>
