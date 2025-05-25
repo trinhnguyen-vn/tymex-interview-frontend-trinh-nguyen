@@ -1,7 +1,7 @@
 # Tymex Frontend Application
 
 ## Overview
-This is a modern web application built with Next.js and React, featuring a marketplace interface for products. The application is designed with scalability, maintainability, and user experience in mind.
+This is a modern web application built with Next.js, featuring a marketplace interface for products. The application is designed with scalability, maintainability, and user experience in mind.
 
 👉 [Online Demo](https://tymex-interview-frontend-trinh-nguyen-frontend.vercel.app/)
 ## Project Architecture
@@ -44,16 +44,16 @@ packages/
 
 ## Technologies Used
 ### Core Technologies
-- **Next.js 15.3.2**: React-bases framework, improve SEO( suitable for comercial application)
+- **Next.js 15.3.2**: React-bases framework, improve SEO( suitable for commercial applications)
 - **React 19.0.0**: JavaScript library for building user interfaces
 - **TypeScript**: For type-safe code
 - **Material-UI (MUI)**: Component library for consistent UI design
   - @mui/material: Core components
   - @mui/icons-material: Icon components
   - @emotion/react & @emotion/styled: Styling solution
-- **json-server**: Server mocking framework
 
 ### Development Tools
+- **json-server**: Server mocking framework
 - **Jest**: Testing framework
 - **React Testing Library**: For component testing
 - **Language**: TypeScript
@@ -71,7 +71,7 @@ packages/
 ### Installation
 1. Clone the repository
 2. Setup Environment Variables
-Create a `.env` file in the packages/frontend directory:
+Create a `.env` file in the packages/frontend directory or copy content from `.env.example`:
 ```env
 NEXT_PUBLIC_API_HOST_URL=your_api_url
 ```
@@ -81,7 +81,7 @@ NEXT_PUBLIC_API_HOST_URL=your_api_url
    yarn install && yarn dev
    ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-The mock server will provide API responses at `http://localhost:5005`
+The mock server will provide API responses at [http://localhost:5005](http://localhost:5005)
 
 ### Testing
 ```bash

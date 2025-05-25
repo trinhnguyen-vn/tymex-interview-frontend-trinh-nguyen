@@ -3,7 +3,7 @@
 
 ### Local Development
 1. Setup Environment Variables
-Create a `.env` file in the packages/frontend directory:
+Create a `.env` file in the packages/frontend directory or copy content from `.env.example`:
 ```env
 NEXT_PUBLIC_API_HOST_URL=your_api_url
 ```
@@ -24,10 +24,6 @@ yarn && yarn dev
 - Mobile Responsive
 - Unit testing
 - Docker support
-
-## Environment Variables
-- `NEXT_PUBLIC_API_HOST_URL`: API endpoint URL
-- `NODE_ENV`: Environment (development/production)
 
 ## Testing Strategy
 - Unit tests for components, ultilities
