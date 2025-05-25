@@ -7,6 +7,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NAV_LINKS } from '@/constants/navbar';
@@ -16,6 +17,7 @@ import { TypeLanguageValue } from '@/types';
 
 const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: (language: TypeLanguageValue) => void; checkIsActive: (path: string) => boolean }> = ({ handleConnectWallet, handleSelectLanguage, checkIsActive }) => {
     const router = useRouter();
+    const theme = useTheme();
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = () => {
@@ -52,6 +54,7 @@ const MobileNavbar: FC<{ handleConnectWallet: () => void; handleSelectLanguage: 
                             setMobileOpen(false);
                         }}
                         sx={{
+                            color: theme.palette.text.primary,
                             backgroundColor: checkIsActive(link.path) ? 'primary.main' : 'transparent',
                         }}
                     >

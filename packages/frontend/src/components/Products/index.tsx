@@ -102,7 +102,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
                                 }} />
                         )}
                     </Box>
-                    <Box sx={{ display: 'flex', flexFlow: 'row wrap', gap: 1, justifyContent: 'center', maxHeight: '90vh', overflow: 'auto' }}>
+                    <Box sx={{ display: 'flex', flexFlow: 'row wrap', gap: 1, justifyContent: 'center', maxHeight: '90vh', overflow: 'auto', border: `1px solid ${theme.palette.primary.main}`, borderRadius: 2, padding: 1 }}>
                         <Grid container spacing={2}>
                             <Box sx={{ display: 'flex', flexFlow: 'row wrap', gap: 1, justifyContent: 'center' }}>
                                 {filteredProducts?.map((product, idx) => (

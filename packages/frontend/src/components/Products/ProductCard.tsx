@@ -60,7 +60,7 @@ export default function ProductCard({
                 background: '#232336',
                 color: '#fff',
                 boxShadow: '0 4px 32px rgba(0,0,0,0.3)',
-                maxWidth: 320,
+                maxWidth: 280,
                 p: 0,
                 overflow: 'visible',
             }}
