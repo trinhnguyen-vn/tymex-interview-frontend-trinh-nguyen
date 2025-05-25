@@ -92,10 +92,10 @@ describe('ProductsPage', () => {
         });
     });
 
-    it('handles load more functionality', async () => {
+    fit('handles load more functionality', async () => {
         const mockMoreProducts: TypeProduct[] = [{
             id: 4,
-            title: 'Product 4',
+            title: 'Extra Product',
             category: 'Electronics' as TypeProductCategory,
             price: 300,
             isFavorite: false,
@@ -106,13 +106,13 @@ describe('ProductsPage', () => {
             author: MOCKED_AUTHOR
         }];
 
-        (useFetch as jest.Mock).mockImplementation(() => ({
-            data: mockMoreProducts,
-            loading: false,
-            error: null,
-            fetchAction: jest.fn().mockResolvedValue(undefined)
-        }));
-
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockMoreProducts),
+                text: () => Promise.resolve(''),
+            })
+        ) as jest.Mock;
         renderWithTheme(<ProductsPage initialProductsData={MOCK_INITIAL_PRODUCTS} />);
 
         // Click load more button
@@ -121,6 +121,7 @@ describe('ProductsPage', () => {
 
         // Wait for the products to update
         await waitFor(() => {
+            expect(screen.getByText(mockMoreProducts[0].title)).toBeVisible();
             const productCards = screen.getAllByTestId('product-card');
             expect(productCards).toHaveLength(MOCK_INITIAL_PRODUCTS.length + mockMoreProducts.length);
         });

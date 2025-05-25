@@ -29,6 +29,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
     const [selectedCategory, setSelectedCategory] = useState<string>(CATEGORY_ALL);
     const [isLoadingMoreMode, setIsLoadingMoreMode] = useState<boolean>(false);
     const [isResetFilter, setIsResetFilter] = useState<boolean>(false);
+    const [isResetFilterByCategory, setIsResetFilterByCategory] = useState<boolean>(false);
 
     const getProductApiUrl = useCallback(
         (category: TypeProductCategory, pageNumber: number = 1) => {
@@ -43,8 +44,9 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
 
     // first time select category
     const onFilterByCategory = useCallback(async (category: TypeProductCategory) => {
-        setIsLoadingMoreMode(false)
+        setIsResetFilterByCategory(false);
         setSelectedCategory(category);
+        setIsLoadingMoreMode(false)
         setIsResetFilter(true)
         setPage(1);
         await fetchProducts({ url: getProductApiUrl(category === CATEGORY_ALL ? '' : category) })
@@ -58,6 +60,10 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
     }, [page, fetchProducts, getProductApiUrl, selectedCategory])
 
     useEffect(() => {
+        if (isResetFilterByCategory) {
+            setSelectedCategory("");
+            return
+        }
         if (!isLoadingMoreMode && selectedCategory === CATEGORY_ALL) {
             // keep the initial data
             setFilteredProducts(initialProductsData);
@@ -66,7 +72,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
         } else {
             setFilteredProducts(() => fetchedProductsData || []);
         }
-    }, [fetchedProductsData, initialProductsData, selectedCategory, isLoadingMoreMode])
+    }, [fetchedProductsData, initialProductsData, selectedCategory, isLoadingMoreMode, isResetFilterByCategory])
 
     return (
         <Box sx={{ p: 3, pt: 10 }}>
@@ -75,7 +81,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
                 flexDirection: { xs: 'column', md: 'row' },
                 gap: { xs: 1, sm: 4 },
             }}>
-                <FilterSection setFilteredProducts={setFilteredProducts} isResetFilter={isResetFilter} setIsResetFilter={setIsResetFilter} />
+                <FilterSection setFilteredProducts={setFilteredProducts} isResetFilter={isResetFilter} setIsResetFilter={setIsResetFilter} resetFilterByCategory={() => setIsResetFilterByCategory(true)} />
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Box sx={{ pb: 5, display: 'flex', flexFlow: 'row wrap', gap: 1 }}>
                         {[CATEGORY_ALL, ...PRODUCT_CATEGORIES].map(cate =>
@@ -88,7 +94,7 @@ const ProductsPage = ({ initialProductsData }: { initialProductsData: TypeProduc
                                     borderRadius: 2,
                                     fontWeight: 600,
                                     fontSize: '1rem',
-                                    background: selectedCategory === cate ? theme.palette.primary.main : theme.palette.primary.light,
+                                    background: isResetFilterByCategory ? theme.palette.primary.light : selectedCategory === cate ? theme.palette.primary.main : theme.palette.primary.light,
                                     padding: '1.5rem',
                                     '&:hover': {
                                         background: theme.palette.primary.main,

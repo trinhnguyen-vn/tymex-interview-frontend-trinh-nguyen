@@ -1,4 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
+import { getAllProducts } from '@/api/products';
+import { useFilterProducts } from '@/hooks/useFilterProducts';
 import {
     Box,
     TextField,
@@ -12,14 +15,13 @@ import {
 } from '@mui/material';
 import { PRODUCT_TIERS, PRODUCT_THEMES } from '@/constants/products';
 import { SearchOutlined } from '@mui/icons-material';
-import { TypeProduct, TypeSortPrice, TypeTimeFrame } from '@/types';
-import { useDebounce } from '@/hooks/useDebounce';
-import { getAllProducts } from '@/api/products';
+import { TypeProduct } from '@/types';
+import { MAIN_COLOR } from '@/styles';
 
 const CustomSlider = styled(Slider)({
     height: 8,
     '& .MuiSlider-track': {
-        background: 'linear-gradient(90deg, #DA458F 0%, #DA34DD 100%)',
+        background: MAIN_COLOR,
         border: 'none',
     },
     '& .MuiSlider-thumb': {
@@ -36,28 +38,29 @@ const CustomSlider = styled(Slider)({
     },
 });
 
-type TypeFilterSectionProps = {
-    setFilteredProducts: React.Dispatch<React.SetStateAction<TypeProduct[] | null>>;
+interface FilterSectionProps {
+    setFilteredProducts: (products: TypeProduct[] | null) => void;
     isResetFilter: boolean;
-    setIsResetFilter: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsResetFilter: (value: boolean) => void;
 }
 
-const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }: TypeFilterSectionProps) => {
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
-    const [tier, setTier] = useState('');
-    const [timeFrame, setTimeFrame] = useState<TypeTimeFrame>('');
-    const [productTheme, setProductTheme] = useState('');
-    const [sortPrice, setSortPrice] = useState<TypeSortPrice>('');
+const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }: FilterSectionProps) => {
+    const {
+        searchTerm,
+        priceRange,
+        tier,
+        timeFrame,
+        productTheme,
+        sortPrice,
+        setSearchTerm,
+        setPriceRange,
+        setTier,
+        setTimeFrame,
+        setProductTheme,
+        setSortPrice,
+        resetFilters,
+    } = useFilterProducts();
     const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
-
-    const handleReset = useCallback(() => {
-        setSearchTerm('');
-        setPriceRange([0, 100]);
-        setTier('');
-        setTimeFrame('');
-        setSortPrice('');
-    }, []);
 
     const onSearchByTitle = useCallback(async () => {
         try {
@@ -88,17 +91,17 @@ const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }:
     }, [setFilteredProducts, searchTerm, priceRange, tier, productTheme, timeFrame, sortPrice]);
 
     useEffect(() => {
-        if (debouncedSearchTerm !== '') {
+        if (debouncedSearchTerm !== "") {
             onSearchByTitle();
         }
     }, [debouncedSearchTerm, onSearchByTitle]);
 
     useEffect(() => {
         if (isResetFilter) {
-            handleReset();
-            setIsResetFilter(false)
+            resetFilters();
+            setIsResetFilter(false);
         }
-    }, [isResetFilter, handleReset, setIsResetFilter]);
+    }, [isResetFilter, resetFilters, setIsResetFilter]);
 
     return (
         <Box sx={{
@@ -199,7 +202,7 @@ const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }:
                 <Box sx={{ display: 'flex', gap: 2 }}>
                     <Button
                         variant="outlined"
-                        onClick={handleReset}
+                        onClick={resetFilters}
                         fullWidth
                         sx={{
                             borderColor: 'primary.main',
