@@ -1,61 +1,37 @@
 
 ## Getting Started
-### Prerequisites
-- Node.js 18 or later
-- Docker (for containerized deployment)
-- Yarn or npm package manager
 
-Can run by three ways: 
 ### Local Development
-First, install dependencies and run the development server:
-```bash
-npm install && npm run dev
-# or
-yarn && yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-### Docker Deployment
-```bash
-# Build the Docker image and run container
-docker build && docker start
-```
-
-### Using Makefile
-For easier Docker management, use the provided Makefile:
-```bash
-# Pull latest code and rebuild
-make auto
-
-# View logs
-make log
-
-# Stop container
-make stop
-```
-
-
-## Code Structure
-## Technologies
-- **Framework**: Next.js
-- **Language**: TypeScript
-- **Styling**: CSS Modules
-- **State Management**: React Context
-- **API Integration**: Axios
-- **Containerization**: Docker
-- **CI/CD**: GitHub Action
-
-## Environment Variables
-Create a `.env.local` file in the root directory:
+1. Setup Environment Variables
+Create a `.env` file in the packages/frontend directory:
 ```env
 NEXT_PUBLIC_API_HOST_URL=your_api_url
 ```
+2. Install dependencies and run the app:
+```bash
+yarn && yarn dev
+```
 
-## Development Workflow
-1. Create a new branch for your feature
-2. Make your changes
-3. Run tests: `yarn test`
-4. Run linting: `yarn lint`
-5. Submit a pull request
+### Key Components
+- **Products**: Main marketplace component, List of Products
+- **Navbar**: Navigation component
+- **Footer**: Footer component
+- **TBDComponent**: Placeholder component
+
+## Features
+- Product listing and filtering
+- Category-based navigation
+- Mobile Responsive
+- Unit testing
+- Docker support
+
+## Environment Variables
+- `NEXT_PUBLIC_API_HOST_URL`: API endpoint URL
+- `NODE_ENV`: Environment (development/production)
+
+## Testing Strategy
+- Unit tests for components, ultilities
+- Snapshot testing for Static component (Footer)
+- Integration tests for API calls
+- Test coverage reporting
 

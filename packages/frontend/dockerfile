@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS builder
+FROM node:18.20.8-alpine AS builder
 WORKDIR /app
 
 # Copy root package.json and yarn.lock
@@ -20,18 +20,19 @@ ENV NEXT_PUBLIC_API_HOST_URL=https://api.demo.cmoon.site
 # Build the Next.js application
 RUN yarn workspace @tymex-interview/frontend build
 
-FROM node:lts-alpine AS production
+COPY packages/frontend/public ./packages/frontend/.next/standalone/packages/frontend/public
+
+FROM node:18.20.8-alpine AS production
 WORKDIR /app
 
 # Copy necessary files from builder stage
-COPY --from=builder /app/packages/frontend/.next/standalone .
-COPY --from=builder /app/packages/frontend/public ./packages/frontend/public
-COPY --from=builder /app/packages/frontend/package.json ./packages/frontend/package.json
-COPY --from=builder /app/packages/frontend/.next/static ./packages/frontend/static
+COPY --from=builder /app/packages/frontend/.next ./.next
+COPY --from=builder /app/packages/frontend/package.json ./package.json
 
+RUN yarn install --production
 
 # Expose the port on which the Next.js application will run
 EXPOSE 3000
 
 # Start the application
-CMD ["node", "packages/frontend/server.js"]
+CMD ["node", ".next/standalone/packages/frontend/server.js"]
