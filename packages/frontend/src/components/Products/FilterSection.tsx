@@ -42,9 +42,10 @@ interface FilterSectionProps {
     setFilteredProducts: (products: TypeProduct[] | null) => void;
     isResetFilter: boolean;
     setIsResetFilter: (value: boolean) => void;
+    resetFilterByCategory: () => void;
 }
 
-const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }: FilterSectionProps) => {
+const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter, resetFilterByCategory }: FilterSectionProps) => {
     const {
         searchTerm,
         priceRange,
@@ -84,18 +85,23 @@ const FilterSection = ({ setFilteredProducts, isResetFilter, setIsResetFilter }:
                 timeFrame,
                 sortPrice,
             });
+            resetFilterByCategory()
             setFilteredProducts(products);
         } catch (error) {
             console.error(error);
         }
-    }, [setFilteredProducts, searchTerm, priceRange, tier, productTheme, timeFrame, sortPrice]);
+    }, [setFilteredProducts, resetFilterByCategory, searchTerm, priceRange, tier, productTheme, timeFrame, sortPrice]);
 
     useEffect(() => {
         if (debouncedSearchTerm !== "") {
             onSearchByTitle();
+            // reset filter by Category Chip when using FilterSection box
+            resetFilterByCategory()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, onSearchByTitle]);
 
+    // reset Filter params when select category chip
     useEffect(() => {
         if (isResetFilter) {
             resetFilters();
