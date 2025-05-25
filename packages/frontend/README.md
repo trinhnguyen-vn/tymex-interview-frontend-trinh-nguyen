@@ -20,6 +20,7 @@ yarn && yarn dev
 
 ## Features
 - Product listing and filtering
+   + Note: Filter & search box works separately with Filter by Category Chip. When selecting filter by Category chip, it reset Filter & search params and vice versa
 - Category-based navigation
 - Mobile Responsive
 - Unit testing
